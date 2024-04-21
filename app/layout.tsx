@@ -20,18 +20,17 @@ export default function RootLayout({
     return (
         <ClerkProvider>
             <html lang="en" suppressHydrationWarning>
-                <body className={ cn(
-                  font.className,
-                  "bg-white dark:bg-[#151617]"
-                )}>
-                  <ThemeProvider
-                    attribute="class"
-                    defaultTheme="dark"
-                    enableSystem={false}
-                    storageKey="U-Chat-theme"
-                  >
-                    {children}
-                  </ThemeProvider>
+                <body
+                    className={cn(font.className, "bg-white dark:bg-[#313338]")}
+                >
+                    <ThemeProvider
+                        attribute="class"
+                        defaultTheme="dark"
+                        enableSystem={false}
+                        storageKey="U-Chat-theme"
+                    >
+                        {children}
+                    </ThemeProvider>
                 </body>
             </html>
         </ClerkProvider>

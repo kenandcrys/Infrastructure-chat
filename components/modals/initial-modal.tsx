@@ -65,7 +65,7 @@ export const InitialModal = () => {
                   <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                       <div>
-                        
+                        ...
                       </div>
                     </form>
                   </Form>

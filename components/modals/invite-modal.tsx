@@ -1,6 +1,7 @@
 "use client";
 
 import { Check, Copy, RefreshCw } from "lucide-react";
+import axios from "axios";
 
 import { useModal } from "@/hooks/use-modal-store"; 
 import {
@@ -14,18 +15,19 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useOrigin } from "@/hooks/use-origin";
 import { useState } from "react";
-import axios from "axios";
 
 export const InviteModal = () => {
-    const { onOpen, isOpen, onClose, type, data } =useModal()
+    const { onOpen, isOpen, onClose, type, data } = useModal()
     const origin = useOrigin();
+
+    const [invite, setInvite] = useState("");
 
     const { server } = data;
 
     const [copied, setCopied] = useState(false);
     const [isLoading, setIsLoading] = useState(false)
 
-    const isModalOpen = isOpen && type === "invite"
+    const isModalOpen = isOpen && type === "invite";
 
     const inviteUrl = `${origin}/invite/${server?.inviteCode}`;
 
@@ -67,6 +69,7 @@ export const InviteModal = () => {
                             disabled={ isLoading }
                             className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0"
                             value={inviteUrl}
+                            onChange={(e) => setInvite(e.target.value)}
                         />
                         <Button disabled={ isLoading } onClick={onCopy} size="icon">
                             {copied

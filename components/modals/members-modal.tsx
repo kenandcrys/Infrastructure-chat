@@ -58,7 +58,26 @@ export const MembersModal = () => {
 
     const isModalOpen = isOpen && type === "members";
 
-     
+     const onKick = async (memberId: string) => {
+        try {
+            setLoadingId(memberId)
+            const url = qs.stringifyUrl({
+                url: `/api/members/${memberId}`,
+                query: {
+                    serverId: server?.id,
+                }
+            })
+            const response = await axios.delete(url)
+            router.refresh();
+            onOpen('members', { server: response.data})
+        }
+        catch(error) {
+            console.log(error)
+        }
+        finally{
+            setLoadingId('')
+        }
+     }
 
     const onRoleChange = async (memberId: string, role: MemberRole) => {
         try {
@@ -112,7 +131,7 @@ export const MembersModal = () => {
                                     <div className="ml-auto">
                                         <DropdownMenu>
                                             <DropdownMenuTrigger>
-                                                <MoreVertical className="h-4 w-4 text-zinc-500" />
+                                                <MoreVertical className="h-4 w-4 text-zinc-500 border-none" />
                                             </DropdownMenuTrigger>
                                             <DropdownMenuContent side="left">
                                                 <DropdownMenuSub>
@@ -146,7 +165,9 @@ export const MembersModal = () => {
                                                     </DropdownMenuPortal>
                                                 </DropdownMenuSub>
                                                 <DropdownMenuSeparator />
-                                                <DropdownMenuItem>
+                                                <DropdownMenuItem
+                                                onClick={()=> onKick(member.id)}
+                                                >
                                                     <Gavel className="h-4 w-4 mr-2" />
                                                     Remove
                                                 </DropdownMenuItem>
